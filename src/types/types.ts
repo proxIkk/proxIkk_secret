@@ -50,6 +50,13 @@ export interface CoinPosition {
   soldTp1?: boolean;
   soldTp2?: boolean;
   sellReason?: string;
+  // <<<--- Добавляем поля для кеширования данных перед продажей --- >>>
+  lastKnownBalance?: string;        // Последний известный баланс (строка, т.к. может быть большим)
+  lastKnownCurveData?: any;         // Последние данные кривой (используем any для простоты, но это будет BondingCurveAccount)
+  lastBalanceFetchTime?: Date;    // Время последнего получения баланса
+  lastCurveDataFetchTime?: Date;  // Время последнего получения данных кривой
+  maxMarketCapUpdateTime?: Date;  // <<< Время последнего обновления maxMarketCap
+  // --- >>>
 }
 
 /**

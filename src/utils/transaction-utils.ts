@@ -8,7 +8,7 @@ import {
 import logger from './logger';
 
 const DEFAULT_TIMEOUT_SEC = 90;
-const POLLING_INTERVAL_MS = 2000;
+const POLLING_INTERVAL_MS = 250;
 
 /**
  * Ожидает подтверждения транзакции с заданным таймаутом.

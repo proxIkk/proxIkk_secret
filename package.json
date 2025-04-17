@@ -13,6 +13,7 @@
   "description": "",
   "devDependencies": {
     "@types/bn.js": "^5.1.5",
+    "@types/decimal.js": "^0.0.32",
     "@types/lodash": "^4.17.16",
     "@types/node": "^22.14.0",
     "@types/pino": "^7.0.4",
@@ -22,17 +23,18 @@
     "@coral-xyz/anchor": "^0.31.0",
     "@shyft-to/js": "^0.2.40",
     "@shyft-to/solana-transaction-parser": "^2.0.0",
+    "@solana/spl-token": "^0.4.6",
     "@solana/web3.js": "^1.98.0",
     "@triton-one/yellowstone-grpc": "^4.0.0",
     "async-mutex": "^0.5.0",
     "axios": "^1.7.2",
     "borsh": "^2.0.0",
+    "decimal.js": "^10.5.0",
     "dotenv": "^16.4.7",
     "helius-sdk": "^1.4.2",
     "jito-ts": "^4.2.0",
     "pino": "^9.6.0",
     "pino-pretty": "^11.2.1",
-    "pumpdotfun-sdk": "github:rckprtr/pumpdotfun-sdk",
-    "@solana/spl-token": "^0.4.6"
+    "pumpdotfun-sdk": "github:rckprtr/pumpdotfun-sdk"
   }
 }

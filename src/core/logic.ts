@@ -33,6 +33,7 @@ import { rpcWithRetry } from '../utils/rpc-utils';
 import { IdlAccounts } from '@coral-xyz/anchor'; 
 import { Pump } from '../types/pump_idl';
 import { Bundle } from 'jito-ts/dist/sdk/block-engine/types';
+import Decimal from 'decimal.js';
 
 // <<<--- Глобальный флаг завершения --- >>>
 let isShuttingDown = false;
@@ -460,8 +461,9 @@ async function checkSellConditions(coin: CoinPosition, context: BotContext): Pro
         sellReason = `Entry SL hit (${config.entrySlPct}%)`;
     } else if (currentMarketCap < maxMarketCap * (1 - config.maxMcSlPct / 100)) {
         sellReason = `Max MC SL hit (${config.maxMcSlPct}%)`;
-    } else if (Date.now() - coin.lastMarketCapUpdateTime.getTime() > config.stagnationTimeoutSec * 1000) {
-        sellReason = `Stagnation Timeout hit (${config.stagnationTimeoutSec}s)`;
+    } else if (coin.maxMarketCapUpdateTime && (Date.now() - coin.maxMarketCapUpdateTime.getTime() > config.stagnationTimeoutSec * 1000)) {
+        // Сработает, если прошло больше stagnationTimeoutSec секунд с тех пор, как был зафиксирован последний maxMarketCap
+        sellReason = `Stagnation Timeout (No new Max MC for ${config.stagnationTimeoutSec}s)`;
     } else if (!coin.soldTp2 && currentMarketCap >= initialMarketCap * config.tp2McMult) {
         sellReason = `TP2 hit (>= ${config.tp2McMult}x)`;
         coin.soldTp2 = true;
@@ -512,22 +514,43 @@ async function startActiveCoinTracking(coin: CoinPosition, context: BotContext):
         // <<<--- Лог в начале интервала --- >>>
         logger.trace({ mint: coin.mint, state: coin.state }, "fetchAndUpdateMC interval triggered"); 
         
-        if (context.activeCoin?.mint !== coin.mint || coin.state !== 'tracking') { 
-             logger.warn({ expectedMint: coin.mint, actualMint: context.activeCoin?.mint, state: coin.state}, 'Stopping tracking for inactive/changed coin.');
+        if (context.activeCoin?.mint !== coin.mint || (coin.state !== 'tracking' && coin.state !== 'buying')) { // Allow fetch during 'buying' state initially
+             logger.warn({ expectedMint: coin.mint, actualMint: context.activeCoin?.mint, state: coin.state}, 'Stopping tracking or pre-fetch for inactive/changed/sold coin.');
              if(context.trackingIntervalId) clearInterval(context.trackingIntervalId);
              context.trackingIntervalId = null;
              return;
         }
                 
         try {
-            // <<<--- Меняем уровень лога об успешном получении данных на info --- >>>
-            const curveAccountInfo = await rpcWithRetry(
-                () => pumpFunProgram.account.bondingCurve.fetch(bondingCurvePublicKey, 'confirmed'), // Используем 'confirmed' для MC
-                `fetchBC_track(${bondingCurvePublicKey.toBase58()})`
-            );
-            if (curveAccountInfo) {
-                 logger.info({ mint: coin.mint }, "Fetched bonding curve data for MC update."); // <-- Уровень INFO
-                 const decodedData: BondingCurveAccount = curveAccountInfo;
+            const ataAddress = getAssociatedTokenAddressSync(new PublicKey(coin.mint), context.tradingWallet.publicKey);
+            
+            // <<<--- Параллельно получаем данные кривой и баланс ('confirmed') --- >>>
+            logger.trace({ mint: coin.mint }, "Fetching curve data and balance concurrently...");
+            const [curveAccountInfoResult, balanceResponseResult] = await Promise.allSettled([
+                rpcWithRetry(
+                    () => pumpFunProgram.account.bondingCurve.fetch(bondingCurvePublicKey, 'confirmed'),
+                    `fetchBC_track(${bondingCurvePublicKey.toBase58()})`
+                ),
+                rpcWithRetry(
+                    () => connection.getTokenAccountBalance(ataAddress, 'confirmed'),
+                    `getTokenBalance_track(${ataAddress.toBase58()})`
+                )
+            ]);
+
+            const now = new Date();
+            let curveDataFetched = false;
+            let balanceFetched = false;
+
+            // Обработка результата данных кривой
+            if (curveAccountInfoResult.status === 'fulfilled' && curveAccountInfoResult.value) {
+                const curveAccountInfo = curveAccountInfoResult.value as BondingCurveAccount; // Приводим тип
+                coin.lastKnownCurveData = curveAccountInfo; // Сохраняем данные кривой
+                coin.lastCurveDataFetchTime = now;
+                curveDataFetched = true;
+                logger.trace({ mint: coin.mint }, "Fetched bonding curve data for MC update and pre-fetch."); 
+                
+                // <<< Расчет Market Cap перенесен внутрь этой проверки >>>
+                 const decodedData: BondingCurveAccount = curveAccountInfo; // Используем уже полученные данные
                  const bondingCurveData: BondingCurveData = {
                      virtualTokenReserves: decodedData.virtualTokenReserves,
                      virtualSolReserves: decodedData.virtualSolReserves,
@@ -537,40 +560,65 @@ async function startActiveCoinTracking(coin: CoinPosition, context: BotContext):
                      complete: decodedData.complete
                  };
                  if (bondingCurveData.virtualTokenReserves.gtn(0) && bondingCurveData.virtualSolReserves.gtn(0) && bondingCurveData.tokenTotalSupply?.gtn(0)) {
-                    const marketCapLamports = bondingCurveData.tokenTotalSupply.mul(bondingCurveData.virtualSolReserves).div(bondingCurveData.virtualTokenReserves);
-                    const currentMarketCap = marketCapLamports.div(new BN(LAMPORTS_PER_SOL)).toNumber();
+                    const marketCapLamportsBN = bondingCurveData.tokenTotalSupply.mul(bondingCurveData.virtualSolReserves).div(bondingCurveData.virtualTokenReserves);
+                    const marketCapDecimal = new Decimal(marketCapLamportsBN.toString()).div(LAMPORTS_PER_SOL);
+                    const currentMarketCapNumber = marketCapDecimal.toNumber(); 
                     
-                    // <<<--- Логируем Market Cap на уровне INFO --- >>>
                     logger.info({ 
                         mint: coin.mint, 
-                        currentMarketCap: currentMarketCap.toFixed(2), // Форматируем для читаемости
-                        previousMarketCap: coin.currentMarketCap?.toFixed(2) ?? 'N/A',
-                        maxMarketCap: (coin.maxMarketCap || coin.initialMarketCap)?.toFixed(2) ?? 'N/A'
+                        currentMarketCap: marketCapDecimal.toString(),
+                        previousMarketCap: coin.currentMarketCap ?? 'N/A',
+                        maxMarketCap: (coin.maxMarketCap || coin.initialMarketCap) ?? 'N/A'
                     }, 'Market Cap updated.'); 
 
-                    // Обновляем данные монеты
-                    coin.currentMarketCap = currentMarketCap;
-                    coin.lastMarketCapUpdateTime = new Date();
+                    // Обновляем данные монеты (храним как number)
+                    coin.currentMarketCap = currentMarketCapNumber;
+                    coin.lastMarketCapUpdateTime = now; // Используем общее время `now`
                     if (!coin.initialMarketCap) {
-                        coin.initialMarketCap = currentMarketCap; // Записываем начальный MC при первом получении
+                        coin.initialMarketCap = currentMarketCapNumber;
+                        coin.maxMarketCap = currentMarketCapNumber; // <<< Инициализируем maxMarketCap
+                        coin.maxMarketCapUpdateTime = now;      // <<< Инициализируем время обновления максимума
+                    } else if (currentMarketCapNumber > (coin.maxMarketCap || 0)) { // <<< Проверяем новый максимум
+                         coin.maxMarketCap = currentMarketCapNumber;
+                         coin.maxMarketCapUpdateTime = now;     // <<< Обновляем время при новом максимуме
                     }
-                    coin.maxMarketCap = Math.max(coin.maxMarketCap || 0, currentMarketCap);
-
-                    // Проверяем условия продажи
-                    await checkSellConditions(coin, context); 
                 } else {
                      logger.warn({ mint: coin.mint }, "Cannot calculate Market Cap: bonding curve reserves are zero.");
                 }
+                 // <<< Конец расчета Market Cap >>>
+
             } else {
-                 logger.warn({ mint: coin.mint }, "Could not fetch bonding curve data for MC update (accountInfo is null).");
+                 logger.warn({ mint: coin.mint, error: (curveAccountInfoResult as PromiseRejectedResult).reason }, "Could not fetch bonding curve data for tracking/pre-fetch.");
+                 // Не сбрасываем старые данные, если они есть
             }
+
+            // Обработка результата баланса
+            if (balanceResponseResult.status === 'fulfilled' && balanceResponseResult.value?.value?.amount !== null && balanceResponseResult.value?.value?.amount !== undefined) {
+                coin.lastKnownBalance = balanceResponseResult.value.value.amount; // Сохраняем баланс
+                coin.lastBalanceFetchTime = now;
+                balanceFetched = true;
+                logger.trace({ mint: coin.mint, balance: coin.lastKnownBalance }, "Fetched token balance for pre-fetch.");
+            } else {
+                const errorReason = balanceResponseResult.status === 'rejected' ? (balanceResponseResult as PromiseRejectedResult).reason : "Amount is null/undefined";
+                logger.warn({ mint: coin.mint, error: errorReason }, "Could not fetch token balance for pre-fetch.");
+                // Не сбрасываем старый баланс, если он есть
+            }
+            // <<<--- Конец параллельной загрузки и обработки --- >>>
+
+            // <<<--- Проверяем условия продажи ТОЛЬКО если есть свежие данные кривой --- >>>
+            if (curveDataFetched && coin.state === 'tracking') { // Check conditions only if in tracking state
+                await checkSellConditions(coin, context);
+            }
+
         } catch (error: any) {
              const errorDetails = error instanceof Error ? { message: error.message, stack: error.stack, name: error.name } : { errorInfo: error };
              logger.error({ mint: coin.mint, error: errorDetails }, "Error during Market Cap tracking interval.");
         }
     };
 
-    await fetchAndUpdateMC(); // Первый вызов
+    // Initial fetch might happen quickly after buy, ensure ATA exists potentially
+    await new Promise(resolve => setTimeout(resolve, 500)); // Small delay before first fetch
+    await fetchAndUpdateMC(); // Первый вызов для получения данных
     context.trackingIntervalId = setInterval(fetchAndUpdateMC, context.config.mcCheckIntervalMs); // Запуск интервала
 
     logger.warn({ mint: coin.mint }, "Creator sell tracking not implemented yet.");
@@ -597,52 +645,50 @@ export async function executeSell(
          const tipAccount = new PublicKey(context.config.jitoTipAccountPubkey);
          const ataAddress = getAssociatedTokenAddressSync(mintPublicKey, tradingWalletKp.publicKey, false, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID);
 
-         // 1. Получаем АКТУАЛЬНЫЙ баланс С ПОВТОРНЫМИ ПОПЫТКАМИ
-         const SELL_BALANCE_FETCH_RETRIES = 3; 
-         const SELL_BALANCE_RETRY_DELAY_MS = 500; 
-         let fetchedBalanceStr: string | null = null;
-         logger.debug({ mint: coin.mint, ata: ataAddress.toBase58() }, `Fetching CURRENT token balance for sell (max ${SELL_BALANCE_FETCH_RETRIES} retries)...`);
-
-         for (let attempt = 1; attempt <= SELL_BALANCE_FETCH_RETRIES; attempt++) {
-            try {
-                logger.trace({ mint: coin.mint, attempt }, `Attempt ${attempt} to fetch token balance for sell...`);
-                const tokenBalanceResponse = await rpcWithRetry(
-                    () => connection.getTokenAccountBalance(ataAddress, 'confirmed'), 
-                    `getTokenBalance_SELL attempt ${attempt} (${ataAddress.toBase58()})`
-                );
-                if (tokenBalanceResponse?.value?.amount !== null && tokenBalanceResponse?.value?.amount !== undefined) {
-                    fetchedBalanceStr = tokenBalanceResponse.value.amount;
-                    logger.info({ mint: coin.mint, balance: fetchedBalanceStr }, "Current token balance fetched successfully for sell.");
-                    break; // Успех
-                } else {
-                     logger.warn({ mint: coin.mint, attempt, response: tokenBalanceResponse }, `Attempt ${attempt}: Could not retrieve token balance amount for sell ('confirmed'), retrying...`);
-                }
-            } catch (balanceError: any) {
-                 logger.warn({ mint: coin.mint, attempt, error: balanceError.message }, `Attempt ${attempt}: Failed to fetch token balance for sell ('confirmed'), retrying...`);
-            }
-            if (attempt < SELL_BALANCE_FETCH_RETRIES) {
-                await new Promise(resolve => setTimeout(resolve, SELL_BALANCE_RETRY_DELAY_MS));
-            }
-         }
-
-         if (fetchedBalanceStr === null) {
-             logger.error({ mint: coin.mint, attempts: SELL_BALANCE_FETCH_RETRIES }, "Failed to fetch CURRENT token balance for sell after all retries. Aborting sell.");
-             coin.sellError = "Failed to fetch balance before sell";
-             coin.state = 'tracking'; 
+         // <<<--- ИЗМЕНЕНИЕ: Используем кешированные данные вместо RPC-запросов --- >>>
+         // 1. Проверка наличия кешированного баланса
+         if (coin.lastKnownBalance === undefined || coin.lastKnownBalance === null || !coin.lastBalanceFetchTime) {
+             logger.error({ mint: coin.mint }, "Cannot execute sell: lastKnownBalance is missing. Aborting sell.");
+             coin.sellError = "Missing cached balance before sell";
+             coin.state = 'tracking'; // Возвращаем в отслеживание, возможно, данные появятся позже
              return false;
          }
+         // Проверка свежести данных (опционально, но рекомендуется)
+         const balanceAgeMs = Date.now() - coin.lastBalanceFetchTime.getTime();
+         if (balanceAgeMs > context.config.mcCheckIntervalMs * 2.5) { // Если данные старше ~2.5 интервалов
+             logger.warn({ mint: coin.mint, ageMs: balanceAgeMs }, "Cached balance is potentially too old. Consider aborting or increase fetch frequency.");
+             // Можно добавить return false; здесь для большей безопасности
+         }
+         logger.debug({ mint: coin.mint, balance: coin.lastKnownBalance, ageMs: balanceAgeMs }, "Using cached token balance for sell.");
+         coin.tokensHeld = coin.lastKnownBalance; // Обновляем на всякий случай
+         const currentTokensHeldBigInt = BigInt(coin.lastKnownBalance);
 
-         coin.tokensHeld = fetchedBalanceStr; 
-         const currentTokensHeldBigInt = BigInt(fetchedBalanceStr);
+         // 2. Проверка наличия кешированных данных кривой
+         if (!coin.lastKnownCurveData || !coin.lastCurveDataFetchTime) {
+            logger.error({ mint: coin.mint }, "Cannot execute sell: lastKnownCurveData is missing. Aborting sell.");
+            coin.sellError = "Missing cached curve data before sell";
+            coin.state = 'tracking'; 
+            return false;
+        }
+        const curveDataAgeMs = Date.now() - coin.lastCurveDataFetchTime.getTime();
+        if (curveDataAgeMs > context.config.mcCheckIntervalMs * 2.5) { // Если данные старше ~2.5 интервалов
+             logger.warn({ mint: coin.mint, ageMs: curveDataAgeMs }, "Cached curve data is potentially too old. Consider aborting or increase fetch frequency.");
+            // Можно добавить return false; здесь для большей безопасности
+        }
+        logger.debug({ mint: coin.mint, ageMs: curveDataAgeMs }, "Using cached bonding curve data for sell.");
+        // Приводим тип сохраненных данных
+        const bondingCurveData = coin.lastKnownCurveData as BondingCurveAccount; 
 
+        // 3. Расчеты с использованием кешированных данных
          if (currentTokensHeldBigInt === 0n) { 
-             logger.info({ mint: coin.mint }, "Current token balance is zero. Considering sell successful (no-op)."); 
+             logger.info({ mint: coin.mint }, "Cached token balance is zero. Considering sell successful (no-op)."); 
              coin.state = 'sold'; 
              await recordTradeStats(coin, context); 
+             if (context.activeCoin?.mint === coin.mint) context.activeCoin = null; // <<< Убедимся, что обнуляем
              return true; 
          }
 
-         // 2. Расчет количества для продажи
+         // Расчет количества для продажи (без изменений)
          let tokensToSellBigInt: bigint;
          if (amountPercentage === 'ALL') {
              tokensToSellBigInt = currentTokensHeldBigInt;
@@ -657,30 +703,14 @@ export async function executeSell(
              return false;
          }
          const tokensToSellBN = new BN(tokensToSellBigInt.toString());
-         logger.info({ mint: coin.mint, amountToSell: tokensToSellBN.toString() }, "Calculated tokens to sell.");
+         logger.info({ mint: coin.mint, amountToSell: tokensToSellBN.toString() }, "Calculated tokens to sell (using cached balance).");
 
-        // 3. Получение данных кривой для расчета min SOL out
-        logger.debug({ mint: coin.mint }, "Fetching bonding curve data for sell...");
-        let bondingCurveData: BondingCurveAccount | null = null;
-        try {
-             bondingCurveData = await rpcWithRetry(() => pumpFunProgram.account.bondingCurve.fetch(bondingCurvePublicKey), `fetchBC_sell(${bondingCurvePublicKey.toBase58()})`);
-        } catch (fetchError: any) {
-             logger.error({ mint: coin.mint, error: fetchError.message }, "Failed to fetch bonding curve data for sell. Aborting sell."); // Улучшен лог
-             coin.sellError = `Fetch BC Error (Sell): ${fetchError.message}`;
-             coin.state = 'tracking'; 
-             return false; 
-        }
-        if (!bondingCurveData) { 
-             logger.error({ mint: coin.mint }, "Bonding curve data is null after fetch for sell. Aborting sell.");
-             coin.sellError = "Fetched null bonding curve data (Sell)";
-             coin.state = 'tracking'; 
-             return false; 
-        }
+        // Расчет min SOL out (используем кешированные данные кривой)
         const virtualSolReserves = bondingCurveData.virtualSolReserves;
         const virtualTokenReserves = bondingCurveData.virtualTokenReserves;
         if (virtualTokenReserves.isZero()) { 
-             logger.error({ mint: coin.mint, vtr: virtualTokenReserves.toString() }, "Cannot calculate sell params: virtual token reserves are zero.");
-             coin.sellError = "Zero virtual token reserves (Sell)";
+             logger.error({ mint: coin.mint, vtr: virtualTokenReserves.toString() }, "Cannot calculate sell params (cached): virtual token reserves are zero.");
+             coin.sellError = "Zero virtual token reserves (Cached Sell)";
              coin.state = 'tracking'; 
              return false; 
         }
@@ -688,9 +718,11 @@ export async function executeSell(
         const slippageNumerator = new BN(10000).sub(new BN(slippageBps));
         const slippageDenominator = new BN(10000);
         const minSolOutputBN = solOutBN.mul(slippageNumerator).div(slippageDenominator);
-        logger.info({ mint: coin.mint, expectedSolOut: solOutBN.toString(), minSolOutput: minSolOutputBN.toString() }, "Calculated minimum SOL output"); // Улучшен лог
+        logger.info({ mint: coin.mint, expectedSolOut: solOutBN.toString(), minSolOutput: minSolOutputBN.toString() }, "Calculated minimum SOL output (using cached curve data)"); 
 
-        // <<<--- Получаем ПРАВИЛЬНЫЙ АТА для кривой бондинга --- >>>
+        // <<<--- КОНЕЦ ИЗМЕНЕНИЯ: Далее идет построение транзакции --- >>>
+
+        // Получаем ПРАВИЛЬНЫЙ АТА для кривой бондинга (без изменений)
         const associatedBondingCurveAddress = getAssociatedTokenAddressSync(
             mintPublicKey, 
             bondingCurvePublicKey, 
@@ -806,9 +838,13 @@ export async function executeSell(
         // 9. Успешная продажа
         logger.info({ mint: coin.mint, sig: sellSignature, soldAmount: tokensToSellBN.toString() }, 'SELL successful (Anchor)!');
         coin.sellTxSignature = sellSignature;
-         if (amountPercentage === 'ALL' || tokensToSellBigInt === currentTokensHeldBigInt) {
-             coin.tokensHeld = '0'; 
-         } else {
+         if (amountPercentage === 'ALL') {
+              coin.state = 'sold';
+              // <<< Убедимся, что обнуляем активную монету >>>
+              if (context.activeCoin?.mint === coin.mint) {
+                  context.activeCoin = null; 
+              }
+          } else {
              logger.warn({ mint: coin.mint }, "Partial sell executed, coin.tokensHeld might be stale.");
              const remaining = currentTokensHeldBigInt - tokensToSellBigInt;
              coin.tokensHeld = remaining.toString();
