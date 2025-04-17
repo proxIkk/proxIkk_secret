@@ -1,0 +1,272 @@
+Timestamp,Mint,Symbol,Name,Buy Timestamp,Sell Timestamp,Duration (s),Buy Tx,Sell Tx,Buy Amount (SOL),Initial MC,Final MC,Max MC,PnL (%),Sell Reason,Buy Sim Error,Buy Error,Sell Error
+"2025-04-11T17:05:17.023Z","EihyqYHQVibEDkskwkJxJv2cCXVG7M1qgKd1LhRYCUJK","GILBERT","gilbert","1744391024456","1744391117023","93","N/A","N/A","0.01",,,,,"N/A",,"Confirmation timeout. Details: ""N/A""",
+"2025-04-11T17:12:05.132Z","9VEokCG4DFRQLGMfCjq98dvYmUKUSQUqDLbCKTEjvZpi","THC","TwoHoleCoin ","1744391523732","1744391525132","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":3012}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 394483 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 387896 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 384014 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20307 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError caused by account: global. Error Code: AccountNotInitialized. Error Number: 3012. Error Message: The program expected this account to be already initialized.
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 5612 of 379543 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0xbc4",
+"2025-04-11T17:12:05.798Z","BTyVxhQEuUPgDNm6MgMc95VLed4geUx2jvvVUx7Jpump","SUNGJUN","NEW CHATGPT FISH","1744391524804","1744391525798","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":3012}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 386983 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 380396 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 376514 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 27807 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError caused by account: global. Error Code: AccountNotInitialized. Error Number: 3012. Error Message: The program expected this account to be already initialized.
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 5612 of 372043 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0xbc4",
+"2025-04-11T17:12:06.415Z","BspqYo8Wt8kw3vk5bNwTNP9KiKPVzqYtPt41ZyYDpump","Fаrtlang","First Fаrt Language","1744391525518","1744391526415","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":3012}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 394483 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 387896 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 384014 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20307 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError caused by account: global. Error Code: AccountNotInitialized. Error Number: 3012. Error Message: The program expected this account to be already initialized.
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 5612 of 379543 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0xbc4",
+"2025-04-11T17:12:09.204Z","GAJLnGp47gYAZuGWox4zukhUucuS1S9vTzpLim9Bpump","NAH","THE FIRST MEME ON EARTH","1744391528612","1744391529204","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":3012}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 391483 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 384896 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 381014 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 23307 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError caused by account: global. Error Code: AccountNotInitialized. Error Number: 3012. Error Message: The program expected this account to be already initialized.
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 5612 of 376543 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0xbc4",
+"2025-04-11T17:16:51.644Z","EzkfvonjSCZh1ArVZGfLwPE8EsHamwAXgeMnp7SNpump","Gomer","Gomer","1744391810641","1744391811644","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":6000}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 391483 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 384896 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 381014 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 23307 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError thrown in programs/pump/src/fee_recipient.rs:29. Error Code: NotAuthorized. Error Number: 6000. Error Message: The given account is not authorized to execute this instruction..
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 26444 of 376543 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0x1770",
+"2025-04-11T17:16:54.089Z","4rt2QoskvnniKR2s3ZB3owmSdKfD2CYSt6JzFtwVpump","PING","Neuralink Cat ","1744391813085","1744391814089","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":6000}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 394483 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 387896 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 384014 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20307 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError thrown in programs/pump/src/fee_recipient.rs:29. Error Code: NotAuthorized. Error Number: 6000. Error Message: The given account is not authorized to execute this instruction..
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 20444 of 379543 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0x1770",
+"2025-04-11T17:16:57.086Z","AVHYcEPvgCAEuxkuBa4g7oFF8PA8xGFmKwCbr4MLpump","SOLEMA","SOLEMA","1744391816003","1744391817086","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":6000}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 392983 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 386396 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 382514 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 21807 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError thrown in programs/pump/src/fee_recipient.rs:29. Error Code: NotAuthorized. Error Number: 6000. Error Message: The given account is not authorized to execute this instruction..
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 23444 of 378043 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0x1770",
+"2025-04-11T17:16:57.674Z","FNBjZD7m2rHcLy9UBmUvWmpPcwxFGSBGQ7yaapZzpump","BOGGS","Saint of Cryptocurrency ","1744391816033","1744391817674","2","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":6000}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 394483 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 387896 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 384014 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20307 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError thrown in programs/pump/src/fee_recipient.rs:29. Error Code: NotAuthorized. Error Number: 6000. Error Message: The given account is not authorized to execute this instruction..
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 20444 of 379543 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0x1770",
+"2025-04-11T17:16:58.244Z","7k3uj6GezBG3AjcqeZdZ8eVETfKZRi4BvuybHyJ1pump","CLAMS","Flinstones Currency","1744391817577","1744391818244","1","N/A","N/A","0.01",,,,,"N/A",,"Simulation Failed: {""InstructionError"":[2,{""Custom"":6000}]}. Logs: Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: Create
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 392983 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 386396 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4188 of 382514 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 21807 of 399850 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]
+Program log: Instruction: Buy
+Program log: AnchorError thrown in programs/pump/src/fee_recipient.rs:29. Error Code: NotAuthorized. Error Number: 6000. Error Message: The given account is not authorized to execute this instruction..
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 20444 of 378043 compute units
+Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0x1770",
+"2025-04-11T18:47:31.876Z","8zChFQWYNAeShWVjHPjQ2f2rgWXg9Lweihvst8dgpump","SICK","SICK NIGGA","1744397160178","1744397251876","92","N/A","N/A","0.01",,,,,"N/A",,"Confirmation timeout ('processed'). Details: ""N/A""",
+"2025-04-11T19:58:06.832Z","AJ4tRHmEAnRVCX2jE2czfEHVYadYXh1VohgZ6PcCpump","MW","Memeatic Warefare","1744401440495","1744401486832","46","XmdPNvfgpfcuUDckooR7zSQigLwn1Yipsc6NEmxQP4efDwk2LjXjKe6QHRa47yQBceQdY9UYp6VJEKV4RzxA7dE","2HpSPV4sACCtMDikC4tVToA4rDu5P1B4yHcb3Qrgoz9AEcACsnUYV6CT6rAdAwWxZUvLo3vuEARVi9xdqm6MFvm9","0.01",,,,,"N/A",,,
+"2025-04-12T16:22:17.598Z","5zyXV8yEuCntMAQoqgdfSXuHgUvFRb2c6k5zrEShMfq5","GPTCOIN","GPTCOIN","1744474925745","1744474937598","12","Y6j74Em5ZdyNJEffGgdTaE9UHoNETwuc5udNPVFUz7eWVhQCw4WKwTydn6r7AtxcCkyxDpxUZ1S1eD1QWiGJK7k","2DrxjHTeypn9rgdJrQgCGHC6L6qBViBzqEnzoZd1uYpxmgUUyEp5vNSVUxAxTNP2GxkFKpE6PDWkTRoq8d9VdAXU","0.01",,,,,"N/A",,,
+"2025-04-12T16:43:21.177Z","4s3kQAWZr7c6qJg7DxSEpbT9fvAnKPi266Z1oh3gY1wP","arc","asci arc","1744476180793","1744476201177","20","2wsNvhQ9noPgXAE8ppJfPiZdYWBwSWU8qxnaGwXutwiwmpmR4YrzW8dWZCFmYxo4QGdspvUwq9B1T1PTx3XdSzcr","2JAHQJtB1FDWfstdRiAuHXbGw63PuWeKfdEmWXQjegKvYUvhAaBuuy4Vt5veytZrP9fUtWyUxFvcVk1yyYm8pdc2","0.01",,,,,"N/A",,,
+"2025-04-12T16:54:05.944Z","Ds3kciUuCG4Gzy7o2z7ZXg1GCag64xxrtS1D5dRqggzi","BATMOON","THE DARK KNIGHT","1744476775811","1744476845944","70","5jTUhE3RWrn6G7N9Kkfq4SdfNV7oVhDC4bYd3yybUpstpmiyjdEyXdxGzcYwa6KbaVzxnpYGdkrsPcRQGn5WLtbV","42Gy3wtSjLcwXBQDwkhoX5f1TipULmXbeRf5LKSnxa9Vyym55oUMJSPmovbYUC72w8NEZrrHjqVfXDEAW2NLtvRM","0.01",,,,,"N/A",,,
+"2025-04-12T17:02:14.632Z","6sUfCC3o1SpacREziAmnYotSnPqazaM2SdSyP1N4pump","LÊO","LÊO","1744477324752","1744477334632","10","5P2EWzj13mo6FuDS9Rn59K3PrvDSdJthx7t7xbRSYoeNqZGkBT7wxKzM7j9GR5Wnhzx6ttfz4oYqdJDJppGtWxc7","NLYHZ5Dv2h5ajnzs6Df3wH8eAMkmJygRNRGJqfzZUTXugi4HvTpMM9q9YT4XP4NiKAMKsRGqPURfrUJyBqJ9vfo","0.01","42","30","42",,"Entry SL hit (5%)",,,
+"2025-04-12T17:02:25.344Z","H5ZZb6Jct8CyETHtVyDGAxUVkCkvU1U4x2SiU8cepump","Li Wei","Jailed in China For Trump Memes","1744477335518","1744477345344","10","WTHoY8YFYbyuiL3L8mVGwMsBeac9DnSWtxKD1q61hUyfKEpAxcR56G9H9QkiDk5VjiYozncfognHB3NoPvaPnex","4JXmHkGVt9pY25aE234E1hdpoLjFkJqv8C6rYJE8yFeD2rMXifUxnHjdfpC5PLHqvZyAAnoDk5tJVpCzKdBasC2d","0.01","33","31","33",,"Entry SL hit (5%)",,,
+"2025-04-12T17:02:30.220Z","8LfcNZFE5qq6okPuybsm6QVgYpowhdBGrGw96yuXpump","MILITARY","MILITARY CORE","1744477346022","1744477350220","4","4RhmTBmxGYzjqbBChfEjTBQFJEYbfQaB3rSbj6YAW8VAmKWARAeG4mEhwLBqoPk8sFxt982vGVg3MUuA9CRqxs8R","2MKQMNKQsGyi4LwAXJrRBwioPr2AjNSYiYQU5fbHb6MqE2qM3n48jayjP9xEz6KgP3nVua1CrehDFaUaM8KzNht4","0.01","28","28","28",,"N/A",,,
+"2025-04-12T17:15:15.779Z","CsdsTUuzXebB428kx5qa49GA2jNqEmjKcEMe8jYypump","VTU","Vandal Trump Uncle","1744478101241","1744478115779","15","5N4B8EyrmX6mH3eq3nYYdRm1fnr3isQR3hLHzMNEDMhTU7kKi37cPvusi2ia27UaZLUng2fi8LryhJuXag74yDsD","4yc3RDTb33S2xzSb6M6CWnCibWMRGpHBndCP5sUTyXvAUQJSRJg5F3uQW7gzLQL3vRdTvfnQ5FCegorwzyqQG7bm","0.01","27","28","28",,"N/A",,,
+"2025-04-16T16:02:40.984Z","14Dd6TGQ1rAUtMPjJTEjbgzBN8Sxufa9ybVovvWfxgTS","💯","💯","1744819349141","1744819360984","12","3FoykUUhMT6z8WiHStqab2ixiYx24HuNPfDMXNsAA2oEXiz4MuF9rZwb26znEgEt9LWbhxZaS6zXqYp7vMP9YKNd","4avKPwRbdQGmSoQFLBpUhbYtKdCwkWsStTSJVUeDVKveEi9wnpojc183N8Jer5QcNtnB3ZzYoJ4rZ9shrYpC3CDg","0.01","28","28","28",,"N/A",,,
+"2025-04-16T18:24:30.750Z","GNdDTS2KAtunEtRuMyDLQrZGxbE3s3q6Z1TSKQhNpump","potato","Better Potato","1744827860894","1744827870750","10","4czoSQSH8CGcLnj4NXMzJsFs642XDpdLakg6F9dVeYaP9ByTaPk7RQqLWVY2HihJ28eBQLhv4Hdtnt4WdNYLEMnk","67FbuFdrdavmbJsvbgP5BZp5BCRXFXbMKXXiwQdfnwFBreusdpUeAZ7khPJuvy7jTj1uxdEWE94d1uGsyA7cHne","0.01","31","31","31",,"N/A",,,
+"2025-04-16T21:10:32.695Z","RtnZybAmQrjiaSYMzXAcUSVkA65BxHKbqEkZun5pump","FATGIRL","FAT GIRL SUMMER","1744837817621","1744837832695","15","UdBQDrxYrR7T9cApaRRhfE3xUKAkQLYjTiktTDSSyTbtfpeMjDGGf2e2uLYNRfv1h5Rb6rngUis37qfzbWv9hMq","JFcHU3svHDDtSTmt4L5FerE9pN5RH5vddBC8HQYzqs3u7oW1B8uLSmZT98uvS6o9V2ezETuTQ57pBiUSh9y4JPt","0.01","185","186","186",,"N/A",,,
+"2025-04-16T21:13:16.084Z","ATEzebXiLSv663Rkm3NVwiXv3wXa9KzeTffqaPmJpump","2GEN","Only 2 genders","1744837986344","1744837996084","10","qP3x8hpTHeRL3ZfF3RSSRJGkS3FJgjSPNz4XqDngXmcadvaBoT4Uq6H9SUmj532jhpHs4avbsyBe8A7gipPnmKu","62JUSWBmuCXqyiqzWQAUG2RFnux1gmBsXEx9KTRDYTXYBkcxUbfSiwNtULKxGzYrmwTavU3YFR9bmu6PRvWJE3m","0.01","28","28","28",,"N/A",,,
+"2025-04-17T06:06:35.445Z","BTgiL5QcESQgffNoMtdpZx67VCJKyixyKEBaoQfmpump","Food","Foodcoin ","1744869987066","1744869995445","8","4nkUb7cvyeEF2T8R8SVox8kVNwi3KmcDEYd6Ch7RrmdGUbxcW9S16QaSAuH6v9igtRx96co1tijWKLAhBHDNzFLD","4AaNfUDna74doSxG5dwutjBdkThCgiSQW8Y7Neph2AN8bE8XKjgMne3NWGXnN2AeNNwuRQRfwtMnGN5ZhwPHK4sr","0.01","50","50","50",,"N/A",,,
+"2025-04-17T06:14:23.835Z","DyURvZz9Gvy9E5dV1E2DSh74rL32UwddY19RwadKpump","DIREWOLF","IRL DIREWOLF ROBBER","1744870457236","1744870463835","7","s3bQ82Ft6PE7SLDExcq2HUtByZwuHCDTN8aLTA9kuRCbSKg5eDhAagZTvGi68G34xrXEetUW4Mfx6NTvgeXPQEn","3x7Yuihv7pgQ8X47YNK3e9xFtacbE1BQJQwKjGyLtK1kStDcehjCqnoVk9FRAHBUeLX3N7JDGu3sMCMG1LUYMELu","0.01","33","31","33",,"Entry SL hit (5%)",,,
+"2025-04-17T06:14:31.752Z","66Y2qtvjkk9L3GMMvxtN27vrSC9L5M6bwveSd1vCpump","YEPUNK","YE PUNK","1744870464672","1744870471752","7","4MSkwje4vvYvDqezr1MNq3fDFnez3qNS65TKXkjQ6pzfNgtbTL8yd7M4uvwt4g8LRCV4b3qCQRyUA1x7dfJvkq5t","3ekfmDXKgPKqZqQmooMVmTENoohrDMNMHcgBWZSq16Pf6kxRRdsTU8NmmM2saYRDKwKAPxXe48Lsb5qdPjPoFUqG","0.01","33","30","33",,"Entry SL hit (5%)",,,
+"2025-04-17T06:14:41.989Z","FtRM1k1SycvqaXyxZnxXqgov7UFk115wguHduFRypump","WEREWOLF","Keddrick Demon Jones Jr","1744870476139","1744870481989","6","pPZyQgm5C37CdheCVizmcKkkc8f72cLbeUCTkAfderjGcSXSRPrqGNxRNu2J8xW8zvE1cytPjd3vrjWmktuYfzN","5EE7Y29xL5Jrw7cZ9zbh4JiHe2FZmZxRp8pzifiYYCFX8G9DEcV4YR1cfNHFZBq5vSSuqT22NsjyGrcNoAPu4g8x","0.01","36","30","36",,"Entry SL hit (5%)",,,
+"2025-04-17T06:27:21.500Z","AjnuyCFQvsaP55bHwrL3xZz3bcCCXxkUAoxsEGbypump","🄿🄴","square pepe","1744871227451","1744871241500","14","3h3TnU5Da5tWGwX5o1wZoF7KYHdhtmt5MB9ZTvUPBkhPvdYtnvNDMVejesCWSiuYG36RyxgNPg39ZZaJ82keBDuE","ZpccYaihADH1huvS4C59az2oYzoUCU4yef2jTia1jPu5LSdNM6Uz3fnU6kooqokV8HmCimGf8adrXNhWxn8KFZm","0.01","37","37","40",,"N/A",,,
